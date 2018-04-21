@@ -11,13 +11,16 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href="#about">About</a>
+        <a class="nav-link js-scroll-trigger" routerLink="/about">About</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href="#experience">Blog</a>
+        <a class="nav-link js-scroll-trigger" routerLink="/blog">Blog</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href="#about">Experience</a>
+        <a class="nav-link js-scroll-trigger" routerLink="/experience">Experience</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" routerLink="/cool-cats">Cool cats</a>
       </li>
     </ul>
   </div>
@@ -26,13 +29,3 @@
 <div class="container-fluid p-0">
   <router-outlet></router-outlet>
 </div>
-
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for this template -->
-<script src="js/resume.min.js"></script>

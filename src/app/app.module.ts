@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { AboutModule } from '../pages/about/about.module';
+import { AboutPageModule } from '../pages/about/about.page.module';
 import {RouterModule} from '@angular/router';
+import {BlogModule} from '../pages/blog/blog.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {RouterModule} from '@angular/router';
     BrowserModule,
     RouterModule,
 
-    AboutModule,
+    AboutPageModule,
+    BlogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

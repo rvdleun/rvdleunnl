@@ -1,0 +1,3 @@
+<a [routerLink]="link"><h3 class="mb-0">{{ blogPost.createdOn }}: {{ blogPost.title }}</h3></a>
+<p class="categories">(Categories: <app-blog-post-categories [types]="blogPost.categories"></app-blog-post-categories>)</p>
+<p class="description">{{ blogPost.summary }}</p>
