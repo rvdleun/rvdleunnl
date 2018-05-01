@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Post20180421Component} from './posts/20180421-introductions/post.component';
+import {Post20180501Component} from './posts/20180501-introductions/post.component';
 
 export type BlogCategoryType = 'ar' | 'games' | 'introduction' | 'personal' | 'vr' | 'webvr';
 
@@ -35,10 +35,10 @@ export class BlogService {
         return [
             {
                 categories: ['personal'],
-                component: Post20180421Component,
-                createdOn: '2018-04-21',
+                component: Post20180501Component,
+                createdOn: '2018-05-01',
                 published: true,
-                summary: 'In which I give a brief hello and some background on why I started this blog',
+                summary: 'In which I give some background on why I started this blog and some thoughts on becoming a freelancer',
                 title: 'Welcome!',
                 url: 'test-post',
             }
