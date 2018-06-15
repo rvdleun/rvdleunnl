@@ -1,9 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CodeExampleComponent} from './code-example.component';
-import {AceEditorModule} from 'ng2-ace-editor';
 import {CaptionModule} from '../caption/caption.module';
 import {CommonModule} from '@angular/common';
-import {ExemplifyModule} from 'angular-exemplify';
 
 @NgModule({
     declarations: [CodeExampleComponent],
