@@ -1,0 +1,39 @@
+<p class="italic">For the past few months, I have been spending a lot of time with AFrame. And when I mean a lot, I <strong>mean</strong> a lot. To the point where I've been using it over Unity and other VR-based tools. Being slightly afraid that I was putting too much focus on just one framework, I've decided to take a good look at other tools to build WebVR to find out what else is out there.</p>
+<p class="italic">The first framework that I will be giving a look is React-360. One thing I would like to note is: At this time of writing, I have zero experience with writing React applications.</p>
+
+<h3>A quick look at ReactVR</h3>
+<p>Launched in April 2017, ReactVR seems to be Oculus' answer to WebVR. Using the same terminology that Facebook's React uses, developers can create VR experiences by building components and placing them in the world, using a CSS-like style to define the look, feel and positioning. Together with using states to manage the current status of the application, it's a way to build a VR application that makes it pretty structured</p>
+<p>The sample 'Hello World' app that comes with ReactVR is as follows...</p>
+
+<app-code-example [code]="reactVrExample"></app-code-example>
+
+<p>Which results in something that looks a little bit like this...</p>
+
+<app-live-example src="/assets/examples/react-vr/reactvr_app.htm" caption="Click and drag to look around"></app-live-example>
+
+<p>And I have to say: I like the way you get to style the button. It's pretty familiar to what I do on a regular basis with CSS. And using transform, I can position, rotate and scale the component using the same coordinates system that your average 3D engine uses. So that's pretty cool. Works pretty well on a Samsung Gear and a Vive.</p>
+<p>Unfortunately, when I learning how to work with this, I was left with a bit of a feeling of: Why? Perhaps if you're familiar with React, this is an easy way to get into WebVR, but I didn't really see many pro's over using this when compared to AFrame. AFrame also works with components to structure the code, it has about two years on ReactVR, is very well documented and has a big, active community. So aside from learning React, I couldn't get too much out of this.</p>
+<p>So I have to admit that I put ReactVR aside for a couple of months. Then at a meetup, I was discussing some alternative frameworks and brought up ReactVR. To my surprise, the website had been revamped, as had the examples. And apparently, it had been renamed to react-360. This captured my interest, so I decided to give it another look.</p>
+<p>Spoiler: I definitely like what I saw.</p>
+
+<h3>ReactVR is dead. Long live React 360!</h3>
+<p>In May, Facebook launched a new version of ReactVR called React 360. The best way I can describe the change is that instead of focusing on 6DOF devices(HTC Vive, Rift, etc), they shifted their priority on creating VR experiences for 3DOF devices, like the Daydream, Samsung Gear and the upcoming Oculus Go.</p>
+<p>That caught my interest. I had finished a fairly simple 360-project a couple of weeks back in AFrame, and had run into some issues, specifically with video playback and with the UI. Having played around with React 360 for about a week now, there are two concepts that I want to highlight in this article: The Pano and Surface</p>
+
+<h4>Pano</h4>
+<p>The pano is a fairly simple component: You pick a source and you get a 360 skybox rendered around the user, much like the a-sky primitive in AFrame. Now, this might be a small thing, but this component also does transitions right out-of-the-box. If you change the image, it will automatically fade-out and fade-in with the new image. This isn't exactly rocket science to build in other frameworks/engines, but to have instant support for this saves time incorporating a different component. It speeds up development.</p>
+<p>It also supports video playback without having to do any additional like waiting for the user to tap the screen. Having lost a weekend trying to get this to work on multiple devices(due to mobile browsers generally requiring user input to start), this was a mind-blower the first time I saw it.</p>
+
+<h4>Surface</h4>
+<p>Once I finally understood how surfaces work, that's when React 360 really began to click for me. To learn how to work with React-360, I decided to create a simple VR tour of my old apartment where I had taken a number of 360 photos. Now, I was stubborn when I first started working on this and wanted to do it the same way I have done before in AFrame and Unity: Place an entity in the center, rotate it, and then add a child entity that is placed 3 meters away. Thing is, this isn't how React 360 does a user interface.</p>
+<p>Now the best way I can describe this is that Surfaces are essentially transparent planes that the developer can instantiate in the 3D environment. Next, using by Views, the user can draw anything on the surface, much like a Canvas object. By default, Surfaces have a cylindrical shapes that wrap around the user camera, but they can also have a flat shape that can be positioned in the 3D Space.</p>
+<p>The main thing that these surfaces do is ensure that the user interface is readable and to provide for an easy way to create an interface for the developer. It's easier to position a component so that the user can easily look at it. Plus, with VrButton, you can create components that are clickable in a desktop environment and can be interacted with using a controller while wearing a VR headset.</p>
+<p>Let's have an example...</p>
+
+<h3>However...</h3>
+<p>There are a few 'howevers' that I do need to bring up. The biggest one that I have to mention is that there isn't really a community like AFrame's that I could find. I had to figure out a lot of things myself, and often had difficulty finding any resources online to refer to. AFrame also comes with an incredible amount of user-made components and the only one I was able to find was a gaze component. It feels that there isn't really a community forming, and I think community is an important part of AFrame's success. If I've missed a hub of any kind, I would love to be proven wrong and will update this article if there is one.</p>
+<p>Other than that, I would also have to say that I sometimes felt as if the documentation was inconsistent or incomplete at times. A couple of times, I had to dig in the components themselves to find out additional features or to figure out how things work. Some of the samples still make use of functionality from when react-360 was known as react-vr. Of course, given that this is an open-source project, I do hope to take the time and submit a pull request to possibly fix a few.</p>
+
+<h3>In conclusion</h3>
+<p>React-360 is interesting. I am very excited about the pivot Oculus made to have it focus on 3DOF content. It looks and works really well on an Oculus Go. As I've definitely had a lot of issues in the past to get 3DOF content to work properly in AFrame, this framework provides an alternative way to build experiences with a lot of functionality being available straight out of the box.</p>
+<p>Unfortunately, due to the 'howevers' raised above, I would recommend using it for fairly small projects at the moment. Me, I will likely use this framework the next time I have to put something fairly simple together(like a 360-tour) and see how it works out.</p>
