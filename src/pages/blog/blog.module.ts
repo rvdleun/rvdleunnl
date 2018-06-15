@@ -8,11 +8,11 @@ import {BlogListPageComponent} from './blog-list/blog-list.page.component';
 import {BlogPostSummaryModule} from '../../components/blog-post-summary/blog-post-summary.module';
 import {Post20180501Component} from './posts/20180501-introductions/post.component';
 import {BlogPostCategoriesModule} from '../../components/blog-post-categories/blog-post-categories.module';
-import {Post20180605Component} from './posts/20180605-react360/post.component';
+import {Post20180616Component} from './posts/20180616-react360/post.component';
 import {CodeExampleModule} from '../../components/code-example/code-example.module';
 import {LiveExampleModule} from '../../components/live-example/live-example.module';
 
-const BlogPosts = [Post20180501Component, Post20180605Component];
+const BlogPosts = [Post20180501Component, Post20180616Component];
 
 @NgModule({
     declarations: [

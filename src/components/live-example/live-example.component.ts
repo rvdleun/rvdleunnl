@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {LiveExampleService} from './live-example.service';
 
 @Component({
     selector: 'app-live-example',
@@ -7,14 +8,36 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
     templateUrl: './live-example.component.html'
 })
 export class LiveExampleComponent implements OnInit {
-    constructor(public sanitizer: DomSanitizer) { }
-
     @Input() caption: string;
-    @Input() height: number = 300;
+    @Input() height = 300;
+    @Input() previewDescription = 'Click here to activate example';
+    @Input() previewImage: string;
     @Input() src: string;
-    public sanitizedUrl: SafeResourceUrl;
+
+    public active: boolean;
+    public sanitizedPreviewImage: SafeResourceUrl;
+    public sanitizedSrc: SafeResourceUrl;
+    public previewStyle: any;
+    public iframeStyle: any;
+
+    constructor(public liveExampleService: LiveExampleService, public sanitizer: DomSanitizer) { }
 
     public ngOnInit() {
-        this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.src);
+        this.liveExampleService.onPlaySubject.subscribe((component) => {
+            if (component !== this) {
+                this.active = false;
+            }
+        });
+
+        this.sanitizedPreviewImage = this.sanitizer.bypassSecurityTrustResourceUrl(this.previewImage);
+        this.sanitizedSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.src);
+
+        this.previewStyle = {'height.px': this.height, 'background-image': `url("${this.previewImage}")`};
+        this.iframeStyle = {'height.px': this.height};
+    }
+
+    public activate() {
+        this.liveExampleService.onPlaySubject.next(this);
+        this.active = true;
     }
 }

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Post20180501Component} from './posts/20180501-introductions/post.component';
-import {Post20180605Component} from './posts/20180605-react360/post.component';
+import {Post20180616Component} from './posts/20180616-react360/post.component';
 
-export type BlogCategoryType = 'ar' | 'games' | 'introduction' | 'personal' | 'vr' | 'webvr';
+export type BlogCategoryType = 'ar' | 'games' | 'introduction' | 'personal' | 'tools-frameworks' | 'vr' | 'webvr';
 
 export interface BlogCategory {
     description: string;
@@ -27,6 +27,7 @@ export class BlogService {
             { description: 'Games', type: 'games' },
             { description: 'Introduction', type: 'introduction' },
             { description: 'Personal', type: 'personal' },
+            { description: 'Tools and frameworks', type: 'tools-frameworks' }
             { description: 'Virtual Reality', type: 'vr' },
             { description: 'WebVR', type: 'webvr' }
         ];
@@ -35,9 +36,9 @@ export class BlogService {
     public getPosts(): BlogPost[] {
         return [
             {
-                categories: ['vr', 'webvr'],
-                component: Post20180605Component,
-                createdOn: '2018-06-05',
+                categories: ['vr', 'webvr', 'tools-frameworks'],
+                component: Post20180616Component,
+                createdOn: '2018-06-16',
                 published: true,
                 summary: 'In which I give my first thoughts about React-360',
                 title: 'WebVR Tools: React-360',

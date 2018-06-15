@@ -9,7 +9,7 @@
 
 <p>Which results in something that looks a little bit like this...</p>
 
-<app-live-example src="/assets/examples/react-vr/reactvr_app.htm" caption="Click and drag to look around"></app-live-example>
+<app-live-example src="/assets/examples/react-vr/reactvr_app.htm" previewImage="/assets/examples/react-vr/preview-image.png" caption="Click and drag to look around"></app-live-example>
 
 <p>And I have to say: I like the way you get to style the button. It's pretty familiar to what I do on a regular basis with CSS. And using transform, I can position, rotate and scale the component using the same coordinates system that your average 3D engine uses. So that's pretty cool. Works pretty well on a Samsung Gear and a Vive.</p>
 <p>Unfortunately, when I learning how to work with this, I was left with a bit of a feeling of: Why? Perhaps if you're familiar with React, this is an easy way to get into WebVR, but I didn't really see many pro's over using this when compared to AFrame. AFrame also works with components to structure the code, it has about two years on ReactVR, is very well documented and has a big, active community. So aside from learning React, I couldn't get too much out of this.</p>
@@ -17,7 +17,7 @@
 <p>Spoiler: I definitely like what I saw.</p>
 
 <h3>ReactVR is dead. Long live React 360!</h3>
-<p>In May, Facebook launched a new version of ReactVR called React 360. The best way I can describe the change is that instead of focusing on 6DOF devices(HTC Vive, Rift, etc), they shifted their priority on creating VR experiences for 3DOF devices, like the Daydream, Samsung Gear and the upcoming Oculus Go.</p>
+<p>In May, Facebook launched a new version of ReactVR called React 360. The best way I can describe the change is that instead of focusing on 6DOF devices(HTC Vive, Rift, etc), they shifted their priority on creating VR experiences for 3DOF devices, like the Daydream, Samsung Gear and the (at the time) upcoming Oculus Go.</p>
 <p>That caught my interest. I had finished a fairly simple 360-project a couple of weeks back in AFrame, and had run into some issues, specifically with video playback and with the UI. Having played around with React 360 for about a week now, there are two concepts that I want to highlight in this article: The Pano and Surface</p>
 
 <h4>Pano</h4>
@@ -27,12 +27,40 @@
 <h4>Surface</h4>
 <p>Once I finally understood how surfaces work, that's when React 360 really began to click for me. To learn how to work with React-360, I decided to create a simple VR tour of my old apartment where I had taken a number of 360 photos. Now, I was stubborn when I first started working on this and wanted to do it the same way I have done before in AFrame and Unity: Place an entity in the center, rotate it, and then add a child entity that is placed 3 meters away. Thing is, this isn't how React 360 does a user interface.</p>
 <p>Now the best way I can describe this is that Surfaces are essentially transparent planes that the developer can instantiate in the 3D environment. Next, using by Views, the user can draw anything on the surface, much like a Canvas object. By default, Surfaces have a cylindrical shapes that wrap around the user camera, but they can also have a flat shape that can be positioned in the 3D Space.</p>
-<p>The main thing that these surfaces do is ensure that the user interface is readable and to provide for an easy way to create an interface for the developer. It's easier to position a component so that the user can easily look at it. Plus, with VrButton, you can create components that are clickable in a desktop environment and can be interacted with using a controller while wearing a VR headset.</p>
-<p>Let's have an example...</p>
+<p>The main thing that these surfaces do is ensure that the user interface is readable and to provide for an easy way to create an interface for the developer. It's easier to position a component so that the user can easily look at it. Plus, with the VrButton feature, you can create components that are clickable on a desktop environment and can be interacted with using a VR controller.</p>
+
+<h4>3D Models</h4>
+<p>I would be remiss not to mention that React 360 can also render 3D model. Much like any other engine, you can place, rotate and scale them anywhere in the environment.</p>
 
 <h3>However...</h3>
-<p>There are a few 'howevers' that I do need to bring up. The biggest one that I have to mention is that there isn't really a community like AFrame's that I could find. I had to figure out a lot of things myself, and often had difficulty finding any resources online to refer to. AFrame also comes with an incredible amount of user-made components and the only one I was able to find was a gaze component. It feels that there isn't really a community forming, and I think community is an important part of AFrame's success. If I've missed a hub of any kind, I would love to be proven wrong and will update this article if there is one.</p>
-<p>Other than that, I would also have to say that I sometimes felt as if the documentation was inconsistent or incomplete at times. A couple of times, I had to dig in the components themselves to find out additional features or to figure out how things work. Some of the samples still make use of functionality from when react-360 was known as react-vr. Of course, given that this is an open-source project, I do hope to take the time and submit a pull request to possibly fix a few.</p>
+<p>There are a few 'howevers' that I do need to bring up. The biggest one that I have to mention is that there isn't really a community like AFrame's that I could find. I had to figure out a lot of things myself, and often had difficulty finding any resources online to refer to. AFrame also comes with an incredible amount of user-made components and the only one I was able to find was a gaze component. It feels that there isn't really a community forming, and I think community is an important part of AFrame's success. If I've missed a hub of any kind, I would love to be proven wrong and will update this article with new information.</p>
+<p>Other than that, I would also have to say that I sometimes felt as if the documentation was inconsistent or incomplete at times. A couple of times, I had to dig in the components themselves to find out additional features or to figure out how things work. Some of the samples still make use of functionality from when react-360 was react-vr.</p>
+
+<h3>Example</h3>
+<app-live-example src="/assets/examples/react-360" previewImage="/assets/examples/react-360/preview-image.png" caption="Background images courtesy of aframe-environment"></app-live-example>
+<p>This example is fairly simple. We have five different panoramas and we can switch between them with the two buttons below. First, we start off by scaffolding the application.</p>
+<app-code-example [code]="react360ClientExample"></app-code-example>
+<ul>
+    <li>First, a surface is created which will hold the panel that you see below.</li>
+    <li>By making the surface flat, the angle can be adjusted to be just below the horizon.</li>
+    <li>Finally, ReactInstance is told to render the `background_demo` component onto this surface.</li>
+</ul>
+<p>This `background_demo` component is defined as follows...</p>
+<app-code-example [code]="react360IndexCodeExample"></app-code-example>
+<ul>
+    <li>The backgrounds are defined in a hardcoded array</li>
+    <li>The `changeBackground` function moves the current selected background ID forward or backwards, then tells the Environment component to set it as the active panorama</li>
+    <li>Again, note that the transitioning between images works out of the box.</li>
+    <li>The `componentDidMount` gets called when the component is initialised and calls the changeBackground to setup the initial panorama</li>
+    <li>The `render` function defines the template for this component. It has two VrButton elements for the previous and the next button.</li>
+</ul>
+<p>Nearly each element has a style attribute. This refers to stylesheet which looks like this...</p>
+<app-code-example [code]="react360IndexStyleExample"></app-code-example>
+<ul>
+    <li>The panel is set to have the same size at the surface</li>
+    <li>The button class does the styling for a button</li>
+    <li>ButtonLeft and ButtonRight are used for positioning.</li>
+</ul>
 
 <h3>In conclusion</h3>
 <p>React-360 is interesting. I am very excited about the pivot Oculus made to have it focus on 3DOF content. It looks and works really well on an Oculus Go. As I've definitely had a lot of issues in the past to get 3DOF content to work properly in AFrame, this framework provides an alternative way to build experiences with a lot of functionality being available straight out of the box.</p>
