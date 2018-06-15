@@ -8,7 +8,7 @@ import {ExemplifyModule} from 'angular-exemplify';
 @NgModule({
     declarations: [CodeExampleComponent],
     exports: [CodeExampleComponent],
-    imports: [CommonModule, CaptionModule, ExemplifyModule],
+    imports: [CommonModule, CaptionModule],
 })
 export class CodeExampleModule {
 }
