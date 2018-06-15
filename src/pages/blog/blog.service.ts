@@ -27,7 +27,7 @@ export class BlogService {
             { description: 'Games', type: 'games' },
             { description: 'Introduction', type: 'introduction' },
             { description: 'Personal', type: 'personal' },
-            { description: 'Tools and frameworks', type: 'tools-frameworks' }
+            { description: 'Tools and frameworks', type: 'tools-frameworks' },
             { description: 'Virtual Reality', type: 'vr' },
             { description: 'WebVR', type: 'webvr' }
         ];
