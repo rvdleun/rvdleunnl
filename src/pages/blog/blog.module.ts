@@ -11,8 +11,10 @@ import {BlogPostCategoriesModule} from '../../components/blog-post-categories/bl
 import {Post20180616Component} from './posts/20180616-react360/post.component';
 import {CodeExampleModule} from '../../components/code-example/code-example.module';
 import {LiveExampleModule} from '../../components/live-example/live-example.module';
+import {Post20180617Component} from './posts/20180617-jedi-challenges-ar-headset/post.component';
+import {YouTubeModule} from '../../components/youtube/youtube.module';
 
-const BlogPosts = [Post20180501Component, Post20180616Component];
+const BlogPosts = [Post20180501Component, Post20180616Component, Post20180617Component];
 
 @NgModule({
     declarations: [
@@ -30,6 +32,7 @@ const BlogPosts = [Post20180501Component, Post20180616Component];
         BlogPostSummaryModule,
         CodeExampleModule,
         LiveExampleModule,
+        YouTubeModule,
     ],
     providers: [
         BlogService,

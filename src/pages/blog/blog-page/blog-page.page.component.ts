@@ -25,6 +25,7 @@ export class BlogPagePageComponent implements OnInit {
             const post = this.blogService.getPosts().find(search => search.createdOn === date && search.url === title);
             if (!post) {
                 console.error('Unable to find post');
+                return;
             }
 
             const factory = this.componentFactoryResolver.resolveComponentFactory(post.component);
