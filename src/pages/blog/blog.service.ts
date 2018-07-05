@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Post20180501Component} from './posts/20180501-introductions/post.component';
 import {Post20180616Component} from './posts/20180616-react360/post.component';
-import {Post20180617Component} from './posts/20180617-jedi-challenges-ar-headset/post.component';
+import {Post20180705Component} from './posts/20180705-jedi-challenges-ar-headset/post.component';
 
 export type BlogCategoryType = 'aframe' | 'ar' | 'games' | 'introduction' | 'personal' | 'tools-frameworks' | 'vr' | 'webvr';
 
@@ -39,9 +39,9 @@ export class BlogService {
         return [
             {
                 categories: ['aframe', 'ar'],
-                component: Post20180617Component,
-                createdOn: '2018-06-16',
-                published: false,
+                component: Post20180705Component,
+                createdOn: '2018-07-05',
+                published: true,
                 summary: 'In which I divulge dark secrets. And talk about Star Wars.',
                 title: 'Jedi Challenges AR Headset',
                 url: 'jedi-challenges-ar-headset',
