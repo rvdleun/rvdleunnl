@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 
 @Component({
     selector: 'app-20180705-jedi-challenges-ar-headset',
     styleUrls: ['../post.scss'],
     templateUrl: 'post.component.html'
 })
-export class Post20180705Component {
+export class Post20180705Component implements AfterViewInit {
     stereoEffectExample: string = 'THREE.StereoEffect = function ( renderer ) {\n' +
         '       var _stereo = new THREE.StereoCamera();\n' +
         '       _stereo.aspect = 0.5;\n' +
@@ -53,4 +53,19 @@ export class Post20180705Component {
     cameraExample: string = '<a-entity look-controls>\n' +
         '       <a-entity camera rotation="-90 0 0"></a-entity>\n' +
         '    </a-entity>';
+
+    public ngAfterViewInit () {
+        !function(d, s, id){
+            let js: any,
+                fjs = d.getElementsByTagName(s)[0],
+                p = 'https';
+            if (!d.getElementById(id)){
+                js = d.createElement(s);
+                js.id = id;
+                js.src = p + '://platform.twitter.com/widgets.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        }
+        (document, 'script', 'twitter-wjs');
+    }
 }
