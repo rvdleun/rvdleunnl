@@ -1,0 +1,77 @@
+<div class="italic">
+    <p>To sum up: I have just released On/Office, an open-source project that I'm really passionate about. The concept is one of the first things I wanted to explore for VR, and I'm seriously excited to release it online.</p>
+    <p>It's a virtual desktop application. Put on your headset, stream your screen into the virtual world and work without any distractions. It's written entirely with web technology and can work with Windows, Mac and Linux. Any headset that supports WebVR should be able to run it, so it works on almost any of the big hardware, from the Vive to the Quest to the good ol' Cardboard.</p>
+    <p>You can download it <a href="https://www.onoffice.app">here</a>, and the source is available here. If you want to learn a bit more about the background and don't mind me ranting about a passion of mine, then read on...</p>
+</div>
+
+<h3>Background</h3>
+<p>(If you're more interested in the technical aspect, then <a href="#technical-part">you can fast forward here</a>)</p>
+<p>The first apartment I purchased was pretty awesome. On top of a grocery store, fairly large living room, and a weirdly big bathroom. The biggest issue I had with is that it only had two bedrooms, which led to me not really having a place where I could work in private. Something which I personally prefer to have as a coder at times.</p>
+<p>When the Oculus Rift was announced, I started dreaming about building a virtual office where I could do my work. I would want it set in a space station. In general, I like to have some atmosphere around me, so I'd imagine these ships flying by, randomly docking and leaving the station.</p>
+
+<h3>The first prototype</h3>
+<app-live-example src="/assets/examples/aframe-office" previewImage="/assets/examples/react-360/preview-image.png" caption="A 360 look at the first prototype"></app-live-example>
+<p>It took awhile before I'd actually get a HTC Vive, but most of my early experiments were courtesy of the <a href="https://www.durovis.com/en/index.html">Durovis Dive</a>. In those times, I was stuck in a hotel for a job about 2-3 days in the week and very, <strong>very</strong> bored. With little to do, I decided to start working on a prototype to see if I could get it working.</p>
+<p>Let me just say this: The first prototype I create was really hacked together. I wrote a Java client that would continually take a screenshot and then pass it to a Unity application which would draw it on a plane. In essence, I always think that this is something that couldn't have worked, but the weirdest thing is: It sorta did.</p>
+<p>It was far from perfect or what I'd want, mind you. The framerate was around 15FPS at most. To compensate for this, I would have the client send the mouse position every time it moves, and there would be a virtual cursor in the VR space to indicate the current position. This would actually turn the app into something that worked, and basically felt as if I was working on a remote desktop.</p>
+<p>Of course, it being on a cardboard-like platform didn't work that well. The desktop itself was very blurry and I had to make it really big and increase the font size to make it workable.</p>
+<p>When I got a GearVR, I ported the concept over to there. What did stand out for me here was that it worked really well for a mobile VR headset and it worked on a MacOS. The only similar applications I saw back then only worked on Windows.</p>
+<p>Using assets from the Unity store, I built a room in a space station. If I'd look outside, I'd see stars and the Earth slowly rotating. I used it a couple of times when I needed to do paperwork(where let my self easily get distracted), and it genuinely worked for me. Whenever I was wearing the headset, my mind snapped into work-mode. It also really helped that I was isolated from the rest of the world. No distractions meant that I could only focused on the screen.</p>
+<p>It was a fun experiment, but that's where it generally stayed. I wrote a few blog posts, got some nice feedback, but never considered turning it into a genuine product.</p>
+
+<h3>Insert the WebVR</h3>
+<p>A few years later, I've mostly switched to Web Development, for both application and VR development. I give a few talks here and there. At <a href="https://www.meetup.com/ITNEXT/events/246830704/">a meetup at ITNext</a>, I briefly talk about the virtual office concept, and I got a surprisingly enthusiastic response from the coders who could see the worth.</p>
+<p>That same week, I got an Oculus Go and I was mostly really surprised with the quality of the display. During my work at <a href="http://gemvision.io">Gemvision</a>, I learned about WebRTC and how I could use it to stream a desktop to another browser. With this in mind, I decided to give this another go.</p>
+<p>After working on it on-and-off for about a year, briefly exploring to see if it could be turned into a commercial project but deciding to go with open-source instead, I released a first version of the application last week.</p>
+
+<h3 id="technical-part">How it works (AKA. The technical part of the post)</h3>
+<p>Initially, I wanted to see if I could get the whole thing working as a web application in the browser. Unfortunately, because I wasn't able to track the cursor when outside the browser window, I quickly dropped that approach.</p>
+<p>Instead, I decided to go with <a href="https://electronjs.org">ElectronJS</a>. For the past years, I had been building some internal mobile applications with Ionic, so decided to see if I could use a similar technique for a desktop application.</p>
+
+<img src="/assets/img/blog/onoffice/settings-screen.png" />
+<p>This is the opening screen. The desktop application is built with <a href="https://angular.io">Angular</a>. The user can select a different 360 background(which is stored as a Base64 string). In the lower-left is an option to select which display to stream. In the lower-right, the user can insert a numerical pincode for additional security.</p>
+<p>Once everything is setup, the user can press the 'Begin Streaming'.</p>
+
+<img src="/assets/img/blog/onoffice/streaming-screen-1.png" />
+<p>At this point, an <a href="https://expressjs.com">Express webserver</a> is opened along with <a href="socket.io">socket.io</a>. This server will serve the client applications that will let the user connect to the desktop.</p>
+<p>This screen went through a number of designs. I would like to eventually turn this into a page where the user can select his headset and get specific instructions for that device on how to connect. For now, I've decided just to give global instructions. With the user of <a href="https://www.npmjs.com/package/internal-ip">internal-ip</a>, I fetch the IP address and display it here. For the Go/Quest, it is imperative to add 'http://' as well, else the brower won't do anything.</p>
+
+<img src="/assets/img/blog/onoffice/in-office.png" />
+<p>Once the user has opened the webapp, it will show the splash screen which is developed in <a href="https://vuejs.org">Vue.js</a>.</p>
+<p>First, a connection is opened via socket.io to send messages back and forth. If the user has setup a pincode, it will need to be inserted here.</p>
+<p>The sky is retrieved via websockets and retrieved as a Base64 string.</p>
+<p>Now here is where it gets a bit more difficult, and I have to admit I mostly wrote this code during an all-nighter. To explain how WebRTC works will need an entire blog post of its own. But summed up: It allows for different browser clients to connect directly with each other(a server is only needed to swap connection data) and share media, like the microphone, webcam and even the desktop. I tried to use existing libraries to work, but after hours of not getting any of them to work, I decided to do it myself. After some time going through some <a href="https://webrtc.org/start/#tutorials">tutorials</a>, I actually managed to get a working connection. At the moment, it works, but I really do need to provide better documentation for this part and possibly replace it with an existing WebRTC library at some point. If you know of any, I'd love to learn about it.</p>
+<p>Once this is done, then the client will start listening for cursor events. The desktop application will continually check if the mouse has moved, and if so, send the position. This lets the VR application show a virtual cursor on top of the screen, so that the user has instant input when moving the mouse. This helps with giving an experience akin to working on a remote desktop. The data consists of simple X,Y position, so the result is pretty instantaneous.</p>
+<p>At this point, initialisation is complete. The user can press 'Enter Office', and begin the virtual experience.</p>
+
+<!-- Insert VR screenshot -->
+<p>Now <a href="https://aframe.io">AFrame</a> takes over. A simple plane is generated in front of the user where a video of the desktop is displayed. The sky-sphere uses the Base64 string to display the image that the user chose as a background. The virtual-cursor component keeps listening for cursor-events and update the position accordingly.</p>
+
+<img src="/assets/img/blog/onoffice/streaming-screen-2.png" />
+<p>In the desktop application, the screen has also changed. With the slider on the left, the user can expand or decrease the size of the screen. With the right button, the screen will center itself to the position where the user is looking. This data is also sent via the websocket.</p>
+
+<p>In a nutshell, that is how On/Office works. I really don't think there is much rocket science going on here, but my goal was to create a simple package that lets anyone have a virtual up-and-running without too much effort. In that regard, I like to think I succeeded.</p>
+
+<h3>The future</h3>
+<p>I consider the release that's out there just a MVP and have more plans on how to expand the product.</p>
+<h4>Multiple displays</h4>
+<p>Todo: Insert image met meerdere schermen hier</p>
+<p>One of the big priorities is getting multiple displays to work. There are still snippets of code in the project to support this, but I dropped this feature relatively early on to focus on getting the basics working. The biggest worry I had was how to let the user move the screen in the virtual environment. I could to implement the controllers for this, but I'm kinda stubborn here, and I want On/Office to work on any headset and that a controller shouldn't be a necessity. For now, I'm thinking of adding an additional input to select a screen which will let you pick which screen you want to center / resize.</p>
+<h4>Controller support</h4>
+<p>Todo: Screen met controller</p>
+<p>However, I'm not against having controllers at all. After multiple displays are working, I want to have support for those as well, and I expect that AFrame's <a href="https://aframe.io/docs/0.9.0/components/tracked-controls.html">tracked-controls</a> component will help out on making it compatible for any platform. This will let the user pick up a screen, move it around and resize it. I'm also thinking of adding a button to hide the controllers, so that they're not constantly in the way when working.</p>
+<h4>The big one: Custom environments</h4>
+<p>Todo: Insert image van een andere omgeving... misschien strand? <a href="https://pbs.twimg.com/media/CcQMy8AUAAACtI4?format=jpg&name=large">Oude screenshot?</a></p>
+<p>The biggest thing I want to add is making the environment customisable. At the moment, it's just a 360 image, but this is VR. We can do more. And with AFrame powering the virtual experience, it should be easy for other developers to build their own environments and be able to work there. I want my space station with a rotation earth outside back!</p>
+<p>At the moment, a static page is served for in the browser. My thoughts are that the user can select a zip file which will be unpacked and served instead when selected. When the page is requested, the splash screen will be injected into the HTML to give the same user experience.</p>
+<p>Next to that, there will also be a JSON file to allow the user to customise the environment. For example, I'd want On/Office to ship with a 360 environment where the user can still select a background image. But for a custom environment, the developer may want to let the user pick what pictures are shown on the wall. Or provide an API key to show a Twitter feed to keep up to date about the latest developments.</p>
+<p>Basically, I want to lower the bar for developers to have a custom virtual office. That's where I want to go with this.</p>
+<p>Todo: Insert image van de source code</p>
+<h4>Technical debt</h4>
+<p>As indicated, a lot of the code was written slightly ad hoc and more as a prototype. I can read and maintain the code, but feel that it should be cleaner. Especially the WebRTC needs to be better documented or refactored.</p>
+<h4>Multi-user?</h4>
+<p>This is one that sometimes pop up in the back of my head. Might be nice to have, but the aim for this project has been to give an isolated office from the start. Still, I'm not ruling out that I want to look into this at some point.</p>
+
+<h3>In closing...</h3>
+<p>I couldn't be more happier about release On/Office. It's a project that I'm passionate about, and it just feels awesome to have it out there. For me, it's also an experiment to see what it's like to maintain an open-source project. In some ways, I'll also have to say that releasing it is making me feel a bit more like legitimate developer. After a talk, a question that often pops is what I have done with WebVR. And the general response I could always give was that I've worked on some stuff that is either fairly small, a prototype or stuff I can't talk about.</p>
+<p>The next time it happens, I can point at this product and say "You see that? I build that".</p>

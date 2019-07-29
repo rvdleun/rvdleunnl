@@ -2,8 +2,18 @@ import {Injectable} from '@angular/core';
 import {Post20180501Component} from './posts/20180501-introductions/post.component';
 import {Post20180616Component} from './posts/20180616-react360/post.component';
 import {Post20180705Component} from './posts/20180705-jedi-challenges-ar-headset/post.component';
+import {Post20190702Component} from './posts/20190702-onoffice/post.component';
 
-export type BlogCategoryType = 'aframe' | 'ar' | 'games' | 'introduction' | 'personal' | 'tools-frameworks' | 'vr' | 'webvr';
+export type BlogCategoryType =
+    'aframe' |
+    'ar' |
+    'games' |
+    'introduction' |
+    'personal' |
+    'projects' |
+    'tools-frameworks' |
+    'vr' |
+    'webvr';
 
 export interface BlogCategory {
     description: string;
@@ -29,6 +39,7 @@ export class BlogService {
             { description: 'Games', type: 'games' },
             { description: 'Introduction', type: 'introduction' },
             { description: 'Personal', type: 'personal' },
+            { description: 'Projects', type: 'projects' },
             { description: 'Tools and frameworks', type: 'tools-frameworks' },
             { description: 'Virtual Reality', type: 'vr' },
             { description: 'WebVR', type: 'webvr' }
@@ -37,6 +48,15 @@ export class BlogService {
 
     public getPosts(): BlogPost[] {
         return [
+            {
+                categories: ['aframe', 'projects', 'vr', 'webvr'],
+                component: Post20190702Component,
+                createdOn: '2019-07-02',
+                published: false,
+                summary: 'In which I babble about a pet project that I\'ve been wanting to unleash for a long time.',
+                title: 'On/Office',
+                url: 'onoffice',
+            },
             {
                 categories: ['aframe', 'ar'],
                 component: Post20180705Component,
