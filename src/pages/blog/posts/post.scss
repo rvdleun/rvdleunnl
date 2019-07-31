@@ -21,3 +21,16 @@ img {
 .twitter-tweet {
   width: 500px;
 }
+
+.unsplash-image {
+  text-align: center;
+  width: 100%;
+
+  img {
+    margin-bottom: 5px;
+  }
+
+  a {
+    margin-bottom: 10px;
+  }
+}
