@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Post20180501Component} from './posts/20180501-introductions/post.component';
 import {Post20180616Component} from './posts/20180616-react360/post.component';
 import {Post20180705Component} from './posts/20180705-jedi-challenges-ar-headset/post.component';
-import {Post20190702Component} from './posts/20190702-onoffice/post.component';
+import {Post20190731Component} from './posts/20190731-onoffice/post.component';
 
 export type BlogCategoryType =
     'aframe' |
@@ -50,8 +50,8 @@ export class BlogService {
         return [
             {
                 categories: ['aframe', 'projects', 'vr', 'webvr'],
-                component: Post20190702Component,
-                createdOn: '2019-07-02',
+                component: Post20190731Component,
+                createdOn: '2019-07-31',
                 published: false,
                 summary: 'In which I babble about a pet project that I\'ve been wanting to unleash for a long time.',
                 title: 'On/Office',

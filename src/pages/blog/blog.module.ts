@@ -14,13 +14,13 @@ import {LiveExampleModule} from '../../components/live-example/live-example.modu
 import {Post20180705Component} from './posts/20180705-jedi-challenges-ar-headset/post.component';
 import {YouTubeModule} from '../../components/youtube/youtube.module';
 import {CaptionModule} from '../../components/caption/caption.module';
-import {Post20190702Component} from './posts/20190702-onoffice/post.component';
+import {Post20190731Component} from './posts/20190731-onoffice/post.component';
 
 const BlogPosts = [
     Post20180501Component,
     Post20180616Component,
     Post20180705Component,
-    Post20190702Component,
+    Post20190731Component,
 ];
 
 @NgModule({
