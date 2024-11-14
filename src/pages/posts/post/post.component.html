@@ -1,0 +1,11 @@
+<div class="post">
+  <div class="content" [innerHTML]="post.content"></div>
+  <div class="data">
+    <div class="date">{{ post.date | date:'YYYY-MM-dd HH:mm' }}</div>
+    <div class="links">
+      <div *ngFor="let link of post.links">
+        <app-post-link [link]="link"></app-post-link>
+      </div>
+    </div>
+  </div>
+</div>

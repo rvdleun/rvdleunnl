@@ -1,0 +1,22 @@
+.post {
+  border: solid 1px var(--gray);
+  padding: 10px;
+
+  .content {
+    margin: 10px 0;
+  }
+
+  .data {
+    display: flex;
+    flex-direction: row;
+    font-size: 10px;
+    justify-content: space-between;
+    width: 100%;
+
+    .links {
+      display: flex;
+      flex-direction: row;
+      gap: .25rem;
+    }
+  }
+}

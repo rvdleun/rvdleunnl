@@ -1,0 +1,9 @@
+.item {
+  //border-bottom: solid 1px black;
+  padding: 10px;
+
+  &:first-child {
+    //border-top: solid 1px black;
+    //margin-top: 10px;
+  }
+}

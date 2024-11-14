@@ -1,5 +1,0 @@
-<div *ngIf="!active" class="preview" (click)="activate()" [ngStyle]="previewStyle">
-    <div class="description">{{ previewDescription }}</div>
-</div>
-<iframe *ngIf="active" [src]="sanitizedSrc" [ngStyle]="iframeStyle"></iframe>
-<app-caption *ngIf="caption" [content]="caption"></app-caption>
